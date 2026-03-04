@@ -1,0 +1,175 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:obuvv"
+        x:Class="obuvv.ProductViewWindow"
+        x:DataType="local:ProductViewWindow"
+        Title="ООО ОБУВЬ — Каталог товаров"
+        WindowStartupLocation="CenterScreen"
+        Width="1000" Height="800"
+        CanResize="True"
+        RequestedThemeVariant="Light"
+        FontFamily="Times New Roman">
+
+    <DockPanel>
+        <Border DockPanel.Dock="Top" Height="5" Background="#7FFF00"/>
+        
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+
+            <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto" Margin="0,10,0,20">
+                <Image Grid.Column="0" Source="avares://obuvv/image/Icon.ico" Width="65" Height="65"/>
+                
+                <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                    <TextBlock Text="ООО ОБУВЬ" FontSize="14" Foreground="Gray" HorizontalAlignment="Center"/>
+                    <TextBlock Text="КАТАЛОГ ТОВАРОВ" FontSize="26" FontWeight="Black"/>
+                </StackPanel>
+                
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="10">
+                    <Button x:Name="AddProductButton" Content="+" Width="40" Height="40" 
+                            Background="#7FFF00" FontSize="20" FontWeight="Bold" Click="AddProductButton_Click"/>
+                    <Button x:Name="OrdersButton" Content="Мои Заказы" Height="40" Padding="15,0"
+                            Background="#7FFF00" FontWeight="Bold" Click="OrdersButton_Click"/>
+                    <Button x:Name="BackButton" Content="Выйти" Width="100" Height="40"
+                            Background="White" BorderBrush="#7FFF00" BorderThickness="2" FontWeight="Bold" Click="BackButton_Click"/>
+                </StackPanel>
+            </Grid>
+
+            
+            <Border x:Name="ControlPanel" Grid.Row="1" Background="#FAFAFA" Padding="20" Margin="0,0,0,20">
+                <Grid RowDefinitions="Auto,Auto" RowSpacing="15">
+           
+                
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBox x:Name="SearchTextBox" Text="{Binding SearchText}" Watermark="Поиск по артикулу, названию..." Height="45"/>
+                        <Button x:Name="SearchButton" Grid.Column="1" Content="Поиск" Width="120" Height="45"
+                                Background="#7FFF00" Margin="10,0,0,0" FontWeight="Bold" Click="SearchButton_Click"/>
+                    </Grid>
+                    
+
+                    <WrapPanel Grid.Row="1">
+                        <StackPanel Margin="0,0,20,10">
+                            <TextBlock Text="Категория" FontSize="11" FontWeight="Bold" Margin="5,0"/>
+                            <ComboBox x:Name="CategoryComboBox" ItemsSource="{Binding Categories}"
+                                      SelectedItem="{Binding SelectedCategory}" Width="200" Height="35"/>
+                        </StackPanel>
+                        
+                        <StackPanel Margin="0,0,20,10">
+                            <TextBlock Text="Производитель" FontSize="11" FontWeight="Bold" Margin="5,0"/>
+                            <ComboBox x:Name="ManufacturerComboBox" ItemsSource="{Binding Manufacturers}"
+                                      SelectedItem="{Binding SelectedManufacturer}" Width="200" Height="35"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,0,20,10">
+                            <TextBlock Text="Сортировка" FontSize="11" FontWeight="Bold" Margin="5,0"/>
+                            <ComboBox x:Name="SortComboBox" SelectedItem="{Binding SortBy}" Width="220" Height="35">
+                                <ComboBox.Items>
+                                    <x:String>По названию (А-Я)</x:String>
+                                    <x:String>По названию (Я-А)</x:String>
+                                    <x:String>По цене (возрастание)</x:String>
+                                    <x:String>По цене (убывание)</x:String>
+                                    <x:String>По количеству (возрастание)</x:String>
+                                    <x:String>По количеству (убывание)</x:String>
+                                    <x:String>По скидке (возрастание)</x:String>
+                                    <x:String>По скидке (убывание)</x:String>
+                                </ComboBox.Items>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <CheckBox x:Name="InStockCheckBox" Content="В наличии" 
+                                  IsChecked="{Binding ShowOnlyInStock}" 
+                                  VerticalAlignment="Center" Margin="0,0,20,10"/>
+
+                        <Button x:Name="ResetFiltersButton" Content="Сбросить" Height="35"
+                                Background="Transparent" BorderBrush="Gray" BorderThickness="1" Click="ResetFiltersButton_Click"/>
+                    </WrapPanel>
+                </Grid>
+            </Border>
+
+
+            <ScrollViewer Grid.Row="2">
+                <ItemsControl x:Name="ProductsItemsControl" ItemsSource="{Binding Products}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="local:ProductViewModel">
+                            <Border BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="15"
+                                    Padding="20" Margin="0,0,0,20" Background="White">
+                                
+                                <Grid ColumnDefinitions="180,*,160,180">
+
+
+                                    <Border Background="White" CornerRadius="10" Padding="5" Height="160">
+                                        <Image Source="{Binding ProductImage}" Stretch="Uniform"/>
+                                    </Border>
+                                    
+
+
+
+                                    <StackPanel Grid.Column="1" Spacing="10" Margin="25,0">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding CategoryName}" FontSize="12" Foreground="#7FFF00" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding ProductName}" FontSize="20" FontWeight="Bold" TextWrapping="Wrap"/>
+                                            <StackPanel Orientation="Horizontal" Spacing="5">
+                                                <TextBlock Text="Артикул:" FontSize="12" Foreground="Gray"/>
+                                                <TextBlock Text="{Binding Article}" FontSize="12" FontWeight="Bold"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        
+                                        <TextBlock Text="{Binding Description}" FontSize="14" TextWrapping="Wrap" 
+                                                   MaxHeight="60" Foreground="#444444"/>
+                                        
+                                        <StackPanel Spacing="3">
+                                            <TextBlock Text="{Binding Manufacturer}" FontSize="13"/>
+                                            <TextBlock Text="{Binding Supplier}" FontSize="12" Foreground="Gray"/>
+                                            
+                                            <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,5,0,0">
+                                                <TextBlock Text="{Binding OriginalPrice}" FontSize="18"
+                                                           TextDecorations="{Binding OriginalPriceTextDecorations}"/>
+                                                <TextBlock Text="{Binding DiscountedPrice}" FontSize="22" 
+                                                           Foreground="Red" FontWeight="Black"
+                                                           IsVisible="{Binding HasDiscount}"/>
+                                            </StackPanel>
+                                            
+                                            <TextBlock Text="{Binding Unit}" FontSize="12"/>
+                                            <TextBlock Text="{Binding StockQuantity}" FontSize="12" 
+                                                       Foreground="{Binding StockColor}" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </StackPanel>
+
+
+
+                                    <StackPanel Grid.Column="2" Spacing="10" VerticalAlignment="Center" 
+                                                IsVisible="{Binding IsAdmin}">
+                                        <Button Content="Изменить" Background="#7FFF00" Width="140" Height="40"
+                                                FontWeight="Bold" Click="EditProductButton_Click" CommandParameter="{Binding}"/>
+                                        <Button Content="Удалить" Background="White" BorderBrush="#FF4500" 
+                                                BorderThickness="1" Foreground="#FF4500" Width="140" Height="40"
+                                                FontWeight="Bold" Click="DeleteProductButton_Click" CommandParameter="{Binding}"/>
+                                    </StackPanel>
+                                    
+
+
+
+                                    <Border Grid.Column="3" CornerRadius="12" Padding="15" 
+                                            Background="{Binding DiscountBackground}"
+                                            VerticalAlignment="Center" HorizontalAlignment="Right">
+                                        <StackPanel HorizontalAlignment="Center">
+                                            <TextBlock Text="СКИДКА" FontSize="10" FontWeight="Bold" 
+                                                       HorizontalAlignment="Center"/>
+                                            <TextBlock Text="{Binding DiscountValue, StringFormat='{}{0}%'}" 
+                                                       FontSize="32" FontWeight="Black" 
+                                                       HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </DockPanel>
+</Window>

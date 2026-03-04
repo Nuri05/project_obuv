@@ -1,0 +1,141 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:obuvv"
+        x:Class="obuvv.ProductEditWindow"
+        x:DataType="local:ProductEditWindow"
+        Title="ООО ОБУВЬ — Редактирование товара"
+        Icon="avares://obuvv/image/Icon.ico"
+        WindowStartupLocation="CenterOwner"
+        Width="950" Height="850"
+        Background="White"
+        
+        RequestedThemeVariant="Light"
+        FontFamily="Times New Roman">
+    
+    <DockPanel>
+        
+        <Border DockPanel.Dock="Top" 
+                Background="White" 
+                BorderBrush="#7FFF00"
+                BorderThickness="0,0,0,4"
+                Height="90"
+                Padding="25,5">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Image Grid.Column="0"
+                       Source="avares://obuvv/image/Icon.ico"
+                       Width="60" Height="60"/>
+                
+                <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                    <TextBlock Text="УПРАВЛЕНИЕ ТОВАРАМИ" 
+                               FontSize="14" Foreground="Gray"/>
+                    <TextBlock Text="РЕДАКТИРОВАНИЕ" 
+                               FontSize="26" FontWeight="Black"/>
+                </StackPanel>
+                
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="12">
+                    <Button x:Name="SaveButton"
+                            Content="СОХРАНИТЬ"
+                            Background="#00FA9A"
+                            Width="140" Height="45"
+                            FontWeight="Bold"/>
+                    
+                    <Button x:Name="CancelButton"
+                            Content="ОТМЕНА" 
+                            Background="White"
+                            BorderBrush="#FF6347"
+                            BorderThickness="2"
+                            Foreground="#FF6347"
+                            Width="110" Height="45"
+                            FontWeight="Bold"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <ScrollViewer Background="#FAFAFA">
+            <Border Margin="30" Background="White" CornerRadius="15" Padding="30">
+                <Grid ColumnDefinitions="300, *">
+                    
+                
+
+                    <StackPanel Grid.Column="0" Spacing="15" Margin="0,0,30,0">
+                        <TextBlock Text="ИЗОБРАЖЕНИЕ" FontSize="12" FontWeight="Bold" Foreground="Gray"/>
+                        <Border Background="#F9F9F9" BorderBrush="#EEEEEE" BorderThickness="2" 
+                                CornerRadius="10" Height="280">
+                            <Image x:Name="PreviewImage" Stretch="Uniform" Margin="10"/>
+                        </Border>
+                        
+                        <TextBox x:Name="PhotoPathTextBox" 
+                                 Watermark="Имя файла..." 
+                                 Background="#F5F5F5" Height="35"/>
+                        
+                        <Button x:Name="BrowsePhotoButton"
+                                Content="ОБНОВИТЬ ФОТО"
+                                Background="#7FFF00"
+                                Height="40"
+                                FontWeight="Bold"/>
+                    </StackPanel>
+
+
+
+                    <Grid Grid.Column="1" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" 
+                          ColumnDefinitions="*,*" RowSpacing="15" ColumnSpacing="15">
+                        
+                        <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
+                            <TextBlock Text="АРТИКУЛ*" FontSize="11" FontWeight="Bold" Margin="5,0"/>
+                            <TextBox x:Name="ArticleTextBox" Height="40"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+                            <TextBlock Text="НАИМЕНОВАНИЕ*" FontSize="11" FontWeight="Bold" Margin="5,0"/>
+                            <ComboBox x:Name="ProductNameComboBox" Height="40"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Grid.Column="0">
+                            <TextBlock Text="КАТЕГОРИЯ*" FontSize="11" FontWeight="Bold" Margin="5,0"/>
+                            <ComboBox x:Name="CategoryComboBox" Height="40"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Grid.Column="1">
+                            <TextBlock Text="ПРОИЗВОДИТЕЛЬ*" FontSize="11" FontWeight="Bold" Margin="5,0"/>
+                            <ComboBox x:Name="ManufacturerComboBox" Height="40"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="3" Grid.ColumnSpan="2">
+                            <TextBlock Text="ПОСТАВЩИК*" FontSize="11" FontWeight="Bold" Margin="5,0"/>
+                            <ComboBox x:Name="SupplierComboBox" Height="40"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="4" Grid.Column="0">
+                            <TextBlock Text="ЦЕНА*" FontSize="11" FontWeight="Bold" Margin="5,0"/>
+                            <TextBox x:Name="PriceTextBox" Height="40"/>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Row="4" Grid.Column="1">
+                            <TextBlock Text="ЕД. ИЗМЕРЕНИЯ*" FontSize="11" FontWeight="Bold" Margin="5,0"/>
+                            <ComboBox x:Name="UnitComboBox" Height="40"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="5" Grid.Column="0">
+                            <TextBlock Text="КОЛИЧЕСТВО*" FontSize="11" FontWeight="Bold" Margin="5,0"/>
+                            <TextBox x:Name="QuantityTextBox" Height="40"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="5" Grid.Column="1">
+                            <TextBlock Text="СКИДКА (%)" FontSize="11" FontWeight="Bold" Margin="5,0"/>
+                            <TextBox x:Name="DiscountTextBox" Height="40"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="6" Grid.ColumnSpan="2">
+                            <TextBlock Text="ОПИСАНИЕ" FontSize="11" FontWeight="Bold" Margin="5,0"/>
+                            <TextBox x:Name="DescriptionTextBox" 
+                                     Height="120" 
+                                     AcceptsReturn="True" 
+                                     TextWrapping="Wrap" 
+                                     Padding="10"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

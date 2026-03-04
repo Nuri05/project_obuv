@@ -1,0 +1,197 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:obuvv"
+        mc:Ignorable="d" 
+        d:DesignWidth="1000" d:DesignHeight="850"
+        x:Class="obuvv.OrderEditWindow"
+        Title="ООО ОБУВЬ — Редактирование заказа"
+        Icon="avares://obuvv/image/Icon.ico"
+        WindowStartupLocation="CenterOwner"
+        Width="1000" Height="850"
+        MinWidth="900" MinHeight="700"
+        Background="White"
+        RequestedThemeVariant="Light"
+        FontFamily="Times New Roman"
+        x:DataType="local:OrderEditWindow">
+    
+    <DockPanel Background="White">
+        <Border DockPanel.Dock="Top" 
+                Background="White" 
+                BorderBrush="#7FFF00"
+                BorderThickness="0,0,0,4"
+                Height="90"
+                Padding="25,5">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Image Grid.Column="0"
+                       Source="avares://obuvv/image/Icon.ico"
+                       Width="60" Height="60"
+                       VerticalAlignment="Center"/>
+                
+                <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="УПРАВЛЕНИЕ ЗАКАЗАМИ" 
+                               FontSize="14" 
+                               HorizontalAlignment="Center"
+                               Foreground="Gray" 
+                               LetterSpacing="2"/>
+                    <TextBlock x:Name="TitleTextBlock"
+                               Text="РЕДАКТИРОВАНИЕ" 
+                               FontSize="26" 
+                               FontWeight="Black" 
+                               Foreground="Black"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+                
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Spacing="12">
+                    <Button x:Name="SaveButton"
+                            Content="СОХРАНИТЬ"
+                            Background="#00FA9A"
+                            Foreground="Black"
+                            Click="SaveButton_Click"
+                            Width="140" Height="45"
+                            FontWeight="Bold"
+                            CornerRadius="22"/>
+                    
+                    <Button x:Name="CancelButton"
+                            Content="ОТМЕНА" 
+                            Background="White"
+                            BorderBrush="#FF6347"
+                            BorderThickness="2"
+                            Foreground="#FF6347"
+                            Click="CancelButton_Click"
+                            Width="110" Height="45"
+                            FontWeight="Bold"
+                            CornerRadius="22"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Border DockPanel.Dock="Top"
+                x:Name="ErrorTextBlock"
+                Background="#FFE6E6"
+                BorderBrush="#FF9999"
+                BorderThickness="1"
+                IsVisible="False"
+                Padding="10"
+                Margin="20,10,20,0">
+            <TextBlock x:Name="ErrorText" Text="" Foreground="#CC0000" FontWeight="Bold" TextWrapping="Wrap"/>
+        </Border>
+
+        <ScrollViewer Background="#FAFAFA">
+            <Border Margin="30" 
+                    Background="White" 
+                    CornerRadius="15" 
+                    BoxShadow="0 4 15 0 #15000000"
+                    Padding="30">
+                <StackPanel Spacing="25">
+                    
+                    <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="*,*" RowSpacing="20" ColumnSpacing="20">
+                        
+                        <StackPanel Grid.Row="0" Grid.Column="0">
+                            <TextBlock Text="НОМЕР ЗАКАЗА" FontSize="11" FontWeight="Bold" Margin="5,0,0,5" Foreground="Gray"/>
+                            <TextBox x:Name="OrderNumberTextBox" Height="45" CornerRadius="5" IsReadOnly="True" Background="#F5F5F5" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1">
+                            <TextBlock Text="КОД ПОЛУЧЕНИЯ*" FontSize="11" FontWeight="Bold" Margin="5,0,0,5" Foreground="Gray"/>
+                            <TextBox x:Name="ReceiptCodeTextBox" Height="45" CornerRadius="5" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Grid.Column="0">
+                            <TextBlock Text="ДАТА ЗАКАЗА" FontSize="11" FontWeight="Bold" Margin="5,0,0,5" Foreground="Gray"/>
+                            <DatePicker x:Name="OrderDatePicker" HorizontalAlignment="Stretch" Height="45"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Grid.Column="1">
+                            <TextBlock Text="ДАТА ДОСТАВКИ*" FontSize="11" FontWeight="Bold" Margin="5,0,0,5" Foreground="Gray"/>
+                            <DatePicker x:Name="DeliveryDatePicker" HorizontalAlignment="Stretch" Height="45"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
+                            <TextBlock x:Name="ClientLabel" Text="КЛИЕНТ*" FontSize="11" FontWeight="Bold" Margin="5,0,0,5" Foreground="Gray"/>
+                            <Grid>
+                                <ComboBox x:Name="ClientComboBox" HorizontalAlignment="Stretch" Height="45" CornerRadius="5"/>
+                                <TextBlock x:Name="SelectedClientLabel" IsVisible="False" VerticalAlignment="Center" Margin="15,0" FontWeight="Bold" FontSize="14"/>
+                            </Grid>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="3" Grid.Column="0">
+                            <TextBlock Text="ТОЧКА ВЫДАЧИ*" FontSize="11" FontWeight="Bold" Margin="5,0,0,5" Foreground="Gray"/>
+                            <ComboBox x:Name="PickupPointComboBox" HorizontalAlignment="Stretch" Height="45" CornerRadius="5"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="3" Grid.Column="1">
+                            <TextBlock Text="СТАТУС ЗАКАЗА*" FontSize="11" FontWeight="Bold" Margin="5,0,0,5" Foreground="Gray"/>
+                            <ComboBox x:Name="StatusComboBox" HorizontalAlignment="Stretch" Height="45" CornerRadius="5"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Border Background="#F9F9F9" BorderBrush="#EEEEEE" BorderThickness="1" CornerRadius="12" Padding="20">
+                        <StackPanel Spacing="15">
+                            <TextBlock Text="ДОБАВЛЕНИЕ ТОВАРОВ В ЗАКАЗ" FontSize="13" FontWeight="Black" Foreground="#333333"/>
+                            <Grid ColumnDefinitions="*,120,Auto" ColumnSpacing="15">
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Text="ВЫБЕРИТЕ ТОВАР" FontSize="10" Foreground="Gray" Margin="5,0"/>
+                                    <ComboBox x:Name="ProductComboBox" HorizontalAlignment="Stretch" Height="40" CornerRadius="5"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="КОЛ-ВО" FontSize="10" Foreground="Gray" Margin="5,0"/>
+                                    <TextBox x:Name="QuantityTextBox" Height="40" Text="1" CornerRadius="5" VerticalContentAlignment="Center"/>
+                                </StackPanel>
+                                <Button Grid.Column="2" x:Name="AddProductButton" Content="ДОБАВИТЬ" Click="AddProductButton_Click" 
+                                        Background="#7FFF00" FontWeight="Bold" Height="40" Padding="20,0" CornerRadius="5" VerticalAlignment="Bottom"/>
+                            </Grid>
+                            <TextBlock x:Name="PriceTextBlock" Text="-" FontSize="12" Foreground="Gray" HorizontalAlignment="Right" Margin="0,-5,10,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border BorderBrush="#EEEEEE" BorderThickness="1" CornerRadius="10" ClipToBounds="True">
+                        <StackPanel>
+                            <Border Background="#F0F0F0" Height="40" Padding="15,0">
+                                <Grid ColumnDefinitions="*,80,100,80,100,50">
+                                    <TextBlock Text="НАИМЕНОВАНИЕ ТОВАРА" FontSize="10" FontWeight="Bold" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="1" Text="КОЛ-ВО" FontSize="10" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <TextBlock Grid.Column="2" Text="ЦЕНА ЕД." FontSize="10" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                    <TextBlock Grid.Column="3" Text="СКИДКА" FontSize="10" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <TextBlock Grid.Column="4" Text="ИТОГО" FontSize="10" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                    <TextBlock Grid.Column="5" Text="" />
+                                </Grid>
+                            </Border>
+                            <ItemsControl ItemsSource="{Binding OrderItems}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border BorderBrush="#F9F9F9" BorderThickness="0,0,0,1" Padding="15,10">
+                                            <Grid ColumnDefinitions="*,80,100,80,100,50">
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding ProductName}" FontWeight="Bold" FontSize="13" TextWrapping="Wrap"/>
+                                                    <TextBlock Text="{Binding Article}" FontSize="11" Foreground="Gray"/>
+                                                </StackPanel>
+                                                <TextBlock Grid.Column="1" Text="{Binding Quantity}" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Medium"/>
+                                                <TextBlock Grid.Column="2" Text="{Binding UnitPriceFormatted}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                                <TextBlock Grid.Column="3" Text="{Binding DiscountFormatted}" Foreground="{Binding DiscountForeground}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                <TextBlock Grid.Column="4" Text="{Binding TotalPriceFormatted}" FontWeight="Black" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#333333"/>
+                                                <Button Grid.Column="5" Content="✕" Click="RemoveProductButton_Click" Background="Transparent" Foreground="#FF6347" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="#E8F5E9" CornerRadius="12" Padding="25">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Text="ОБЩАЯ СТОИМОСТЬ ЗАКАЗА" FontSize="12" FontWeight="Bold" Foreground="#2E7D32"/>
+                                <TextBlock Text="С учетом всех индивидуальных скидок" FontSize="11" Foreground="#4CAF50"/>
+                            </StackPanel>
+                            <TextBlock Grid.Column="1" x:Name="TotalAmountTextBlock" Text="0.00 ₽" FontSize="28" FontWeight="Black" Foreground="#2E8B57" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                    
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

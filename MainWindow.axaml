@@ -1,0 +1,72 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="obuvv.MainWindow"
+        Title="ООО ОБУВЬ — Вход"
+        WindowStartupLocation="CenterScreen"
+        Width="600" Height="650"
+        CanResize="False"
+        RequestedThemeVariant="Light"
+        FontFamily="Times New Roman">
+
+    <Grid>
+        <Border Height="5" Background="#7FFF00" VerticalAlignment="Top"/>
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            
+            <StackPanel Margin="0,0,0,20" HorizontalAlignment="Center">
+                <Image Source="avares://obuvv/image/Icon.ico" Width="100" Height="100"/>
+                <TextBlock Text="ООО ОБУВЬ" 
+                           FontSize="14" 
+                           FontWeight="Bold" 
+                           Foreground="Gray" 
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+
+            <Border Background="White" Width="400">
+                
+                <StackPanel Spacing="15">
+                    
+                    <TextBlock Text="ВХОД" 
+                               FontSize="22" 
+                               FontWeight="Bold" 
+                               HorizontalAlignment="Center"/>
+                    
+                    <TextBlock Text="ЛОГИН" FontSize="11" FontWeight="Bold" Foreground="Gray"/>
+                    <TextBox x:Name="TxtLogin" 
+                             Height="45" 
+                             Watermark="Введите логин"/>
+                    
+                    <TextBlock Text="ПАРОЛЬ" FontSize="11" FontWeight="Bold" Foreground="Gray"/>
+                    <TextBox x:Name="TxtPassword" 
+                             PasswordChar="*" 
+                             Height="45" 
+                             Watermark="Введите пароль"/>
+                    
+                    <TextBlock x:Name="TxtErrorMessage" 
+                               Foreground="Red" 
+                               FontSize="12"
+                               IsVisible="False"
+                               TextWrapping="Wrap"/>
+                    
+                    <Button Content="ВОЙТИ" 
+                            Click="LoginButton_Click" 
+                            Height="50"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Background="#7FFF00" 
+                            Foreground="Black" 
+                            FontWeight="Bold"/>
+                    
+                    <Button Content="ВОЙТИ КАК ГОСТЬ" 
+                            Click="GuestButton_Click" 
+                            Height="50"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center" 
+                            Background="#7FFF00" 
+                            Foreground="Black" 
+                            FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Grid>
+</Window>
